@@ -1,0 +1,92 @@
+load("@pip//:requirements.bzl", "requirement")
+load("@rules_python//python:defs.bzl", "py_binary", "py_library", "py_runtime", "py_runtime_pair")
+#load("@rules_pkg//:mappings.bzl", "pkg_attributes", "pkg_filegroup", "pkg_files", "pkg_mkdirs", "strip_prefix")
+#load("@rules_pkg//:pkg.bzl", "pkg_tar", "pkg_zip")
+load("@io_bazel_rules_docker//container:container.bzl", "container_push")
+load("@io_bazel_rules_docker//python3:image.bzl", "py3_image")
+visibility = ["//visibility:public"]
+
+py_binary(
+    name = "grow",
+    srcs = ["grow.py"],
+    deps = [
+        ":grow_lib",
+    ],
+    data = [":init_script"],
+    python_version = "PY3",
+    visibility = ["//visibility:public"]
+)
+
+py_library(
+    name = "grow_lib",
+    srcs = ["grow_lib.py"],
+    deps = [
+        requirement("grpcio"),
+        requirement("grpcio-health-checking"),
+        requirement("grpcio-channelz"),
+        "//proto:grow_grpc",
+        "//server/lib:response_builder",
+        "//server/lib:system_params_reader"
+    ],
+    visibility = ["//visibility:public"]
+)
+filegroup(
+    name = "init_script",
+    srcs = ["init.sh"],
+    visibility = ["//visibility:public"]
+)
+#load("@bazel_tools//tools/python:toolchain.bzl", "py_runtime_pair")
+#
+#py_runtime(
+#    name = "server_runtime",
+##    interpreter_path = "/home/$USER/venv/bin/python3",
+#    python_version = "PY3",
+#)
+#
+#py_runtime_pair(
+#    name = "py3",
+#    py2runtime = None,
+#    py3_runtime = ":server_runtime",
+#)
+#
+#toolchain(
+#    name = "py3-tc",
+#    toolchain = ":py3",
+#    toolchain_type = "@bazel_tools//tools/python:toolchain_type",
+#)
+#
+#
+##load("@io_bazel_rules_docker//python:image.bzl", "py_image")
+##
+#py3_image(
+#    name = "server_image",
+#    srcs = ["main.py"],
+#    deps = [":autogrow"],
+#    main = "main.py",
+#)
+##
+##platform(
+##    name = "arm64",
+##    constraint_values = [
+##        ":arm_none_compatible",
+##    ],
+##    parents = [
+##        "@arm_none_eabi//platforms:arm_none_generic"
+##    ],
+##)
+##config_setting(
+##    name = "arm_none_compatible",
+##    constraint_values = [
+##        "@platforms//cpu:arm64",
+##        "@platforms//os:linux",
+##    ],
+##)
+##
+#container_push(
+#   name = "server_push",
+#   image = ":server_image",
+#   format = "Docker",
+#   registry = "index.docker.io",
+#   repository = "pmichalik85/wsbiot",
+#   tag = "3"
+#)

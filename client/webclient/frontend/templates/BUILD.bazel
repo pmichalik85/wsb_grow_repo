@@ -1,0 +1,5 @@
+filegroup(
+    name = "templates",
+    srcs = glob(["*.html"]),
+    visibility = ["//visibility:public"]
+)

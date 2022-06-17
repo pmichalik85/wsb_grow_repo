@@ -1,0 +1,77 @@
+load("@pip//:requirements.bzl", "requirement")
+load("@rules_python//python:defs.bzl", "py_binary", "py_library", "py_runtime", "py_runtime_pair")
+visibility = ["//visibility:public"]
+
+py_library(
+    name = "system_params__getter",
+    srcs = ["system_params__getter.py"],
+    deps = [
+        "//proto:grow_grpc",
+        requirement("grpcio"),
+        requirement("psutil"),
+    ],
+    visibility = ["//visibility:public"]
+)
+
+py_library(
+    name = "simple_led__setter",
+    srcs = ["simple_led__setter.py"],
+    deps = [
+        "//proto:grow_grpc",
+        requirement("grpcio"),
+    ],
+    visibility = ["//visibility:public"]
+)
+
+py_library(
+    name = "tsl2591__reader",
+    srcs = ["tsl2591__reader.py"],
+    deps = [
+        "//proto:grow_grpc",
+        requirement("grpcio"),
+        requirement("python_tsl2591"),
+        #requirement("adafruit_tsl2591"),
+    ],
+    visibility = ["//visibility:public"]
+)
+
+py_library(
+    name = "dht22__reader",
+    srcs = ["dht22__reader.py"],
+    deps = [
+        "//proto:grow_grpc",
+        requirement("grpcio"),
+        requirement("adafruit_dht"),
+        # requirement("adafruit-circuitpython-dht")
+
+    ],
+    visibility = ["//visibility:public"]
+)
+
+py_library(
+    name = "ads1x15",
+    srcs = ["ads1x15.py"],
+    deps = [
+        requirement("adafruit_ads1x15")
+    ],
+    visibility = ["//visibility:public"]
+)
+
+py_binary(
+    name = "capacitive_soil_moisture_sensor__reader",
+    srcs = ["capacitive_soil_moisture_sensor__reader.py"],
+    deps = [
+        "//proto:grow_grpc",
+        ":ads1x15",
+        requirement("grpcio"),
+    ],
+    visibility = ["//visibility:public"]
+)
+
+py_library(
+    name = "utils",
+    srcs = ["utils.py"],
+    deps = [
+    ],
+    visibility = ["//visibility:public"]
+)

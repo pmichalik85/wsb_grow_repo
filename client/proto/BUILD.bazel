@@ -1,0 +1,22 @@
+load("@com_github_grpc_grpc//bazel:python_rules.bzl", "py_grpc_library", "py_proto_library")
+load("@rules_proto//proto:defs.bzl", "proto_library")
+visibility = ["//visibility:public"]
+
+proto_library(
+    name = "grow_grpc_proto",
+    srcs = ["grow.proto"],
+    visibility = ["//visibility:public"]
+)
+
+py_proto_library(
+    name = "grow_grpc_py_proto",
+    deps = [":grow_grpc_proto"],
+    visibility = ["//visibility:public"]
+)
+
+py_grpc_library(
+    name = "grow_grpc",
+    srcs = [":grow_grpc_proto"],
+    deps = [":grow_grpc_py_proto"],
+    visibility = ["//visibility:public"]
+)

@@ -1,0 +1,130 @@
+
+{% block content %}
+<div class="mdl-cell mdl-cell--12-col padding-top-bottom0 load" id="load">
+    <!--    TIMESTAMP WIDGET-->
+    <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--12-col padding-top-bottom0 mdl-shadow--1dp through mdl-shadow--4dp">
+            <div class="mdl-card__title mdl-card--expand mdl-color--teal-500 mdl-color-text--teal-200">
+                <h2 class="mdl-card__title-text"><strong> Timestamp: {{data}}</strong></h2>
+            </div>
+        </div>
+    </div>
+<!--    &lt;!&ndash;    SCORECARD WIDGETS&ndash;&gt;-->
+<!--    <div class="mdl-grid">-->
+<!--        <div class="mdl-cell mdl-cell&#45;&#45;3-col padding-top-bottom0 mdl-shadow&#45;&#45;1dp through mdl-shadow&#45;&#45;4dp">-->
+<!--              <div class="mdl-card__title mdl-card&#45;&#45;expand mdl-color&#45;&#45;teal-300">-->
+<!--                <h3 class="mdl-card__title-text">CPU USAGE</h3>-->
+<!--              </div>-->
+<!--              <div class="mdl-card__supporting-text mdl-color-text&#45;&#45;grey-600">-->
+<!--                  <h2>{{cpu}}</h2>-->
+<!--              </div>-->
+<!--        </div>-->
+<!--        <div class="mdl-cell mdl-cell&#45;&#45;3-col padding-top-bottom0 mdl-shadow&#45;&#45;1dp through mdl-shadow&#45;&#45;4dp">-->
+<!--            <div class="mdl-card__title mdl-card&#45;&#45;expand mdl-color&#45;&#45;teal-300">-->
+<!--                <h3 class="mdl-card__title-text">RAM USAGE</h3>-->
+<!--            </div>-->
+<!--              <div class="mdl-card__supporting-text mdl-color-text&#45;&#45;grey-600">-->
+<!--                  <h2>{{memory}}</h2>-->
+<!--              </div>-->
+<!--        </div>-->
+<!--        <div class="mdl-cell mdl-cell&#45;&#45;3-col padding-top-bottom0 mdl-shadow&#45;&#45;1dp through mdl-shadow&#45;&#45;4dp">-->
+<!--          <div class="mdl-card__title mdl-card&#45;&#45;expand mdl-color&#45;&#45;teal-300">-->
+<!--            <h3 class="mdl-card__title-text">CPU TEMP</h3>-->
+<!--          </div>-->
+<!--          <div class="mdl-card__supporting-text mdl-color-text&#45;&#45;grey-600">-->
+<!--              <h2>{{heat}}</h2>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="mdl-cell mdl-cell&#45;&#45;3-col padding-top-bottom0 mdl-shadow&#45;&#45;1dp through mdl-shadow&#45;&#45;4dp">-->
+<!--          <div class="mdl-card__title mdl-card&#45;&#45;expand mdl-color&#45;&#45;teal-300">-->
+<!--            <h3 class="mdl-card__title-text">Network</h3>-->
+<!--          </div>-->
+<!--          <div class="mdl-card__supporting-text mdl-color-text&#45;&#45;grey-600">-->
+<!--              <h2>{{network}}</h2>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="mdl-cell mdl-cell&#45;&#45;12-col padding-top-bottom0 mdl-shadow&#45;&#45;1dp through mdl-shadow&#45;&#45;4dp">-->
+<!--          <div class="mdl-card__title mdl-card&#45;&#45;expand mdl-color&#45;&#45;teal-300">-->
+<!--            <h3 class="mdl-card__title-text">CPU TREND</h3>-->
+<!--          </div>-->
+<!--          <div class="mdl-card__supporting-text mdl-color-text&#45;&#45;grey-600">-->
+
+
+<!--&lt;!&ndash;              <div id="cpu-trend" class="cpu-trend"></div>&ndash;&gt;-->
+<!--              <div id="cpu-trend" class="cpu-trend" style="display: none">{{cpu_trend | tojson}}</div>-->
+<!--              <canvas id="my_dataviz"  class="my_dataviz" width="1200" height="600"></canvas>-->
+
+<!--          </div>-->
+        </div>
+    </div>
+</div>
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+<!--<script>-->
+<!--document.addEventListener('turbo:before-stream-render', function () {-->
+<!--  // var ctx = document.getElementById("my_dataviz").getContext("2d");-->
+<!--  datas = JSON.parse(JSON.parse(document.getElementById("cpu-trend").innerText))-->
+<!--  console.log(datas)-->
+<!--  var labels = Object.values(datas.timestamp);-->
+<!--  var values = Object.values(datas.cpu);-->
+<!--        var data = [-->
+<!--            {-->
+<!--                x: labels,-->
+<!--                y: values,-->
+<!--                type: 'scatter'-->
+<!--            }-->
+<!--        ]-->
+<!--  // var graphs = datas;-->
+<!--  Plotly.newPlot('my_dataviz', data);-->
+
+<!--  // Define Data-->
+<!--// var data = [{-->
+<!--//   x: labels,-->
+<!--//   y: values,-->
+<!--//   mode: "lines",-->
+<!--//   type: "scatter"-->
+<!--// }];-->
+
+<!--// Define Layout-->
+<!--// var layout = {-->
+<!--//   // xaxis: {range: [0, 100], title: "Square Meters"},-->
+<!--//   // yaxis: {range: [0, 100], title: "Price in Millions"},-->
+<!--//   // title: "House Prices vs Size"-->
+<!--// };-->
+
+<!--// Display using Plotly-->
+<!--// Plotly.newPlot("my_dataviz", data);-->
+
+<!--  //-->
+<!--  // // bar chart data-->
+<!--  // var barData = {-->
+<!--  //   labels: labels,-->
+<!--  //   datasets: [{-->
+<!--  //     fillColor: "rgba(151,187,205,0.2)",-->
+<!--  //     strokeColor: "rgba(151,187,205,1)",-->
+<!--  //     pointColor: "rgba(151,187,205,1)",-->
+<!--  //     data: values-->
+<!--  //   }-->
+<!--  //   ]-->
+<!--  // }-->
+<!--  //-->
+<!--  //-->
+<!--  // steps = 10-->
+<!--  // // max = {{max}}-->
+<!--  //-->
+<!--  // // draw bar chart-->
+<!--  // new Chart(ctx).Line(barData, {-->
+<!--  //           scaleOverride: true,-->
+<!--  //           scaleSteps: steps,-->
+<!--  //           scaleStepWidth: Math.ceil(10 / 100),-->
+<!--  //           scaleStartValue: 0,-->
+<!--  //           scaleShowVerticalLines: true,-->
+<!--  //           scaleShowGridLines: true,-->
+<!--  //           barShowStroke: true,-->
+<!--  //           scaleShowLabels: true-->
+<!--  //         }-->
+<!--  // )-->
+<!--})-->
+<!--</script>-->
+
+{% endblock %}
+

@@ -1,0 +1,25 @@
+load("@pip//:requirements.bzl", "requirement")
+load("@rules_python//python:defs.bzl", "py_binary", "py_library")
+visibility = ["//visibility:public"]
+
+py_binary(
+    name = "app",
+    srcs = ["app.py"],
+    deps = [
+        requirement("flask"),
+        requirement("cachetools"),
+        requirement("psutil"),
+        requirement("turbo_flask"),
+        requirement("expiringdict"),
+        requirement("plotly"),
+        requirement("pandas"),
+        requirement("flask_wtf"),
+        requirement("flask_socketio"),
+        requirement("requests"),
+        "//rpc_client:rpc_client",
+        "//rpc_client/libs:request_factory",
+        "//webclient/backend/repository:node_info",
+    ],
+    data = ["//webclient/frontend/templates:templates", "//webclient/frontend/templates/css:css"],
+    visibility = ["//visibility:public"]
+)

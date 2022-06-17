@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+service GrowService {
+   rpc sendRequest (stream GrowRequest) returns (stream GrowResponse) {}
+   rpc streamTSL2591 (GrowRequest) returns (stream GrowResponse) {}
+}
+
+message Data {
+    optional string key = 1;
+    optional string value = 2;
+    optional string type = 3;
+}
+
+enum GrowRequestType {
+  UNKNOWN = 0;
+  ALL__READ = 1;
+  SYSTEM_PARAMS__READ = 2;
+  DHT22__READ = 3;
+  SIMPLE_LED__OPERATOR = 4;
+  SIMPLE_LED__AUTO = 5;
+  TSL2591__READ = 6;
+  TSL2591__STREAM_START = 7;
+  TSL2591__STREAM_END = 8;
+  SOIL_MOISTURE_SENSOR__READ = 9;
+}
+
+message GrowRequest
+{
+  optional string id = 1;
+  optional string timestamp = 2;
+  optional GrowRequestType type = 3;
+  repeated Options options = 4;
+  repeated Data data = 5;
+
+  message Options {
+    optional string key = 1;
+    optional string value = 2;
+  }
+}
+
+message GrowResponse {
+  optional string id = 1;
+  optional string timestamp = 2;
+  optional Status status = 3;
+  optional State state = 4;
+
+  message State {
+    optional string device_type = 1;
+    optional string device_id = 2;
+    optional string device_name = 3;
+    optional string timestamp = 4;
+    repeated Data data = 5;
+  }
+
+  enum Status {
+    UNKNOWN = 0;
+    OK = 1;
+    FAILURE = 2;
+  }
+
+}

@@ -1,0 +1,22 @@
+grpcio==1.44.0
+protobuf
+grpclib==0.4.2
+grpcio-health-checking==1.44.0
+grpcio-channelz
+flask
+Turbo-Flask
+asyncio
+cachetools
+pdfrw
+psutil
+pyspectator
+expiringdict
+plotly
+pandas
+#Adafruit_DHT
+# board
+# adafruit-circuitpython-dht
+requests
+Flask-SocketIO
+plotext
+flask_wtf

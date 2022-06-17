@@ -1,0 +1,26 @@
+load("@pip//:requirements.bzl", "requirement")
+load("@rules_python//python:defs.bzl", "py_binary", "py_library")
+visibility = ["//visibility:public"]
+
+py_library(
+    name = "rpc_client",
+    srcs = ["rpc_client.py"],
+    deps = [
+        ":rpc_client_lib"
+    ],
+    visibility = ["//visibility:public"]
+)
+
+py_library(
+    name = "rpc_client_lib",
+    srcs = ["rpc_client.py"],
+    deps = [
+        requirement("grpcio"),
+        requirement("plotext"),
+        "//proto:grow_grpc",
+        "//rpc_client/libs:request_factory",
+    ],
+    visibility = ["//visibility:public"]
+
+
+)

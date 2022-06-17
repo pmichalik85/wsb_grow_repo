@@ -1,0 +1,38 @@
+load("@pip//:requirements.bzl", "requirement")
+load("@rules_python//python:defs.bzl", "py_binary", "py_library", "py_runtime", "py_runtime_pair")
+visibility = ["//visibility:public"]
+
+py_library(
+    name = "response_builder",
+    srcs = ["response_builder.py"],
+    deps = [
+        requirement("grpcio"),
+        "//proto:grow_grpc",
+    ],
+    visibility = ["//visibility:public"]
+)
+
+
+py_library(
+    name = "system_params_reader",
+    srcs = ["system_params_reader.py"],
+    deps = [
+        "//proto:grow_grpc",
+        requirement("grpcio"),
+        requirement("psutil"),
+    ],
+    visibility = ["//visibility:public"]
+)
+
+py_library(
+    name = "dht_22_reader",
+    srcs = ["dht_22_reader.py"],
+    deps = [
+        "//proto:grow_grpc",
+        requirement("grpcio"),
+        requirement("psutil"),
+        #requirement("adafruit_dht"),
+    ],
+    visibility = ["//visibility:public"]
+)
+
